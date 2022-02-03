@@ -10,7 +10,7 @@ class App extends React.Component {
   render() {
     <p> COMPONENT APP</p>;
     <p> COMPONENT APP2 bonjour nous travaillons salement</p>;
-    <p>Test 4</p>
+    <p>Test 4 567</p>;
   }
 }
 
