@@ -1,6 +1,11 @@
 import React from "react";
 import "./App.css";
 
+import Button from "./components/Button.js";
+import Cards from "./components/Cards";
+import Players from "./components/Player";
+import Score from "./components/Score";
+
 class App extends React.Component {
   constructor() {
     super();
@@ -8,9 +13,14 @@ class App extends React.Component {
   }
 
   render() {
-    <p> COMPONENT APP</p>;
-    <p> COMPONENT APP2 bonjour nous travaillons salement</p>;
-    <p>Test 4 567</p>;
+    return (
+      <div>
+        <Button />;
+        <Cards />;
+        <Players />
+        <Score />
+      </div>
+    );
   }
 }
 
