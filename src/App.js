@@ -36,11 +36,11 @@ class App extends React.Component {
     return (
 
       <div>
-{/* 
+
         <Button />
         <Cards cards={this.state.chosenCard} />
         <Players />
-        <Score /> */}
+        <Score />
 
       </div>
 
