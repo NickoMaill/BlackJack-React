@@ -31,6 +31,15 @@ class App extends React.Component {
       })
   }
 
+  componentDidMount() {
+    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        console.log(res.image);
+      });
+  }
+
   render() {
 
     return (
