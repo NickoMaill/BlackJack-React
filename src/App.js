@@ -13,9 +13,8 @@ class App extends React.Component {
     super();
 
     this.state = {
-
+      chosenCard: "",
     };
-
   }
 
   //appelle de l'API "DeckOfCardsApi"
@@ -23,13 +22,13 @@ class App extends React.Component {
   componentDidMount() {
 
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
-      .then(res => res.json())
-      .then(data => {
-      
-          console.log("test", data.cards[0].image);
-          
-      })
-
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          chosenCard: res.cards[1].image,
+        });
+        console.log(this.state.chosenCard);
+      });
   }
 
   render() {
@@ -39,7 +38,7 @@ class App extends React.Component {
       <div>
 {/* 
         <Button />
-        <Cards />
+        <Cards cards={this.state.chosenCard} />
         <Players />
         <Score /> */}
 
