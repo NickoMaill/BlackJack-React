@@ -15,8 +15,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Button />;
-        <Cards />;
+        <Button />
+        <Cards />
         <Players />
         <Score />
       </div>
