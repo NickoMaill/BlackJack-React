@@ -7,14 +7,20 @@ import Players from "./components/Player";
 import Score from "./components/Score";
 
 class App extends React.Component {
+
   constructor() {
+
     super();
+
     this.state = {
       chosenCard: "",
     };
   }
 
+  //appelle de l'API "DeckOfCardsApi"
+
   componentDidMount() {
+
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
       .then((res) => res.json())
       .then((res) => {
@@ -26,15 +32,22 @@ class App extends React.Component {
   }
 
   render() {
+
     return (
+
       <div>
+{/* 
         <Button />
         <Cards cards={this.state.chosenCard} />
         <Players />
-        <Score />
+        <Score /> */}
+
       </div>
+
     );
+
   }
+
 }
 
 export default App;
