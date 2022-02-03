@@ -9,15 +9,19 @@ import Score from "./components/Score";
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      chosenCard: "",
+    };
   }
 
   componentDidMount() {
-    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+    fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        console.log(res.image);
+        this.setState({
+          chosenCard: res.cards[1].image,
+        });
+        console.log(this.state.chosenCard);
       });
   }
 
@@ -25,7 +29,7 @@ class App extends React.Component {
     return (
       <div>
         <Button />
-        <Cards />
+        <Cards cards={this.state.chosenCard} />
         <Players />
         <Score />
       </div>

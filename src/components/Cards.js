@@ -5,6 +5,9 @@ class Cards extends React.Component {
     return (
       <div>
         <p>CARDS</p>
+        <div>
+          <img src={this.props.cards} />
+        </div>
       </div>
     );
   }
