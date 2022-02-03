@@ -4,7 +4,7 @@ class Cards extends React.Component {
   render() {
     return (
       <div>
-        <p>CARDS</p>;
+        <p>CARDS</p>
       </div>
     );
   }

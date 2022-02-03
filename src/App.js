@@ -12,11 +12,19 @@ class App extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
   render() {
     return (
       <div>
-        <Button />;
-        <Cards />;
+        <Button />
+        <Cards />
         <Players />
         <Score />
       </div>
