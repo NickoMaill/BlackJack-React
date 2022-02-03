@@ -7,21 +7,47 @@ import Players from "./components/Player";
 import Score from "./components/Score";
 
 class App extends React.Component {
+
   constructor() {
+
     super();
-    this.state = {};
+
+    this.state = {
+
+    };
+
+  }
+
+  componentDidMount() {
+
+    fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
+      .then(res => res.json())
+      .then(data => {
+        data.map((cards) => {
+
+          console.log(cards);
+        })
+        
+      })
   }
 
   render() {
+
     return (
+
       <div>
+{/* 
         <Button />
         <Cards />
         <Players />
-        <Score />
+        <Score /> */}
+
       </div>
+
     );
+
   }
+
 }
 
 export default App;
