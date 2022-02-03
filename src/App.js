@@ -9,7 +9,7 @@ class App extends React.Component {
 
   render() {
     <p> COMPONENT APP</p>;
-    <p> COMPONENT APP2 bonjour nous travaillons efficacement</p>;
+    <p> COMPONENT APP2 bonjour nous travaillons bien</p>;
   }
 }
 
