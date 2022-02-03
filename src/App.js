@@ -18,26 +18,18 @@ class App extends React.Component {
 
   }
 
+  //appelle de l'API "DeckOfCardsApi"
+
   componentDidMount() {
 
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
       .then(res => res.json())
       .then(data => {
-        data.map((cards) => {
-
-          console.log(cards);
-        })
-        
+      
+          console.log("test", data.cards[0].image);
+          
       })
-  }
 
-  componentDidMount() {
-    fetch("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        console.log(res.image);
-      });
   }
 
   render() {
