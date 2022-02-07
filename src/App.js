@@ -22,18 +22,21 @@ class App extends React.Component {
       totalScorePlayer: null,
     };
 
+    // Bind fonction onCLick tirage des cartes du joueur
     this.drawCard = this.drawCard.bind(this);
   }
 
-  //appelle de l'API "DeckOfCardsApi"
+  //appelle de l'API "DeckOfCardsApi" et tirage initial des cartes de la banque avec score
 
   componentDidMount() {
+    // Requête initial de l'API
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
       .then((res) => res.json())
       .then((res) => {
         cardsDeck.push(res);
         console.log(cardsDeck);
 
+        // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
         if (
           cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
           cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
@@ -41,22 +44,21 @@ class App extends React.Component {
         ) {
           this.setState({
             scoreBank: 10 + this.state.scoreBank,
-            // cardCount: this.state.cardCount + 1,
           });
         } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
           this.setState({
             scoreBank: 1 + this.state.scoreBank,
-            // cardCount: this.state.cardCount + 1,
           });
         } else {
           this.setState({
+            // Score des cartes "standards"
             scoreBank:
               parseInt(cardsDeck[0].cards[this.state.cardCount].value) +
               this.state.scoreBank,
-            // cardCount: this.state.cardCount + 1,
           });
         }
 
+        // Récupération de l'image de la carte tirée par la banque
         this.setState({
           bankCards: [
             cardsDeck[0].cards[this.state.cardCount].image,
@@ -67,12 +69,13 @@ class App extends React.Component {
       });
   }
 
+  //
   componentDidUpdate(_prevProps, prevState) {
     if (prevState.bankCards !== this.state.bankCards) {
     }
   }
 
-  // Fonction tirage carte
+  // Fonction tirage cartes joueur et ajout au score
   drawCard() {
     let playerScore = cardsDeck[0].cards[this.state.cardCount].value;
 
@@ -80,6 +83,7 @@ class App extends React.Component {
 
     playerScore = parseInt(playerScore);
 
+    // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
     if (
       cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
       cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
@@ -95,12 +99,14 @@ class App extends React.Component {
         cardCount: this.state.cardCount + 1,
       });
     } else {
+      //Score des cartes standards
       this.setState({
         scorePlayer: playerScore + this.state.scorePlayer,
         cardCount: this.state.cardCount + 1,
       });
     }
 
+    // Récupération de l'image de la carte tirée
     this.setState({
       playerCard: [
         cardsDeck[0].cards[this.state.cardCount].image,
@@ -109,6 +115,7 @@ class App extends React.Component {
     });
   }
 
+  // RENDER
   render() {
     return (
       <div>
