@@ -4,11 +4,9 @@ class Score extends React.Component {
 
     render(){
         return(
-
-
-            <p>Score</p>
-
-
+            <div>
+                <div>score: {this.props.score}</div>
+            </div>
         )
     };
 }
