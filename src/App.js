@@ -33,11 +33,36 @@ class App extends React.Component {
       .then((res) => {
         cardsDeck.push(res);
         console.log(cardsDeck);
+
+        if (
+          cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
+          cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
+          cardsDeck[0].cards[this.state.cardCount].value === "JACK"
+        ) {
+          this.setState({
+            scoreBank: 10 + this.state.scoreBank,
+            // cardCount: this.state.cardCount + 1,
+          });
+        } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
+          this.setState({
+            scoreBank: 1 + this.state.scoreBank,
+            // cardCount: this.state.cardCount + 1,
+          });
+        } else {
+          this.setState({
+            scoreBank:
+              parseInt(cardsDeck[0].cards[this.state.cardCount].value) +
+              this.state.scoreBank,
+            // cardCount: this.state.cardCount + 1,
+          });
+        }
+
         this.setState({
           bankCards: [
             cardsDeck[0].cards[this.state.cardCount].image,
             ...this.state.bankCards,
           ],
+          cardCount: this.state.cardCount + 1,
         });
       });
   }
