@@ -13,7 +13,7 @@ class App extends React.Component {
     this.state = {
       cardCount: 0,
       bankCard: "",
-      playerCard: "",
+      playerCard: [],
       scoreBank: null,
       scorePlayer: null,
       totalScoreBank: null,
@@ -42,9 +42,12 @@ class App extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           this.setState({
-            chosenCard: res.cards[this.state.cardCount].image,
+            playerCard: [
+              res.cards[this.state.cardCount].image,
+              ...prevState.playerCard,
+            ],
           });
-          console.log(this.state.chosenCard);
+          console.log(this.state.playerCard);
         });
     }
   }
@@ -59,7 +62,7 @@ class App extends React.Component {
     return (
       <div>
         <Button onClick={this.drawCard} />
-        <Cards cards={this.state.chosenCard} />
+        <Cards cards={this.state.playerCard} />
         <Players />
         <Score />
       </div>

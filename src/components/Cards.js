@@ -6,7 +6,18 @@ class Cards extends React.Component {
       <div>
         <p>CARDS</p>
         <div>
-          <img src={this.props.cards} />
+          <ul>
+            {this.props.cards.map((item) => {
+              return (
+                <li>
+                  <p>
+                    <img src={item} />
+                  </p>
+                  <p></p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     );
