@@ -6,6 +6,8 @@ class Player extends React.Component {
         return (
             <div>
                 <p>Player</p>
+                <img src='/images/Croupier2.png' alt='un croupier' />
+                <img src='/images/Joueur2.png' alt='un joueur' />
             </div>
         )
     }
