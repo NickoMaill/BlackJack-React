@@ -7,20 +7,20 @@ import Players from "./components/Player";
 import Score from "./components/Score";
 
 class App extends React.Component {
-
   constructor() {
-
     super();
 
     this.state = {
       chosenCard: "",
+      actualCard: "",
     };
+
+    this.drawCard = this.drawCard.bind(this);
   }
 
   //appelle de l'API "DeckOfCardsApi"
 
   componentDidMount() {
-
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
       .then((res) => res.json())
       .then((res) => {
@@ -31,23 +31,35 @@ class App extends React.Component {
       });
   }
 
+  componentDidUpdate(_prevProps, prevState) {
+    if (prevState.actualCard !== this.state.actualCard) {
+      fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
+        .then((res) => res.json())
+        .then((res) => {
+          this.setState({
+            chosenCard: res.cards[1].image,
+          });
+          console.log(this.state.chosenCard);
+        });
+    }
+  }
+
+  drawCard() {
+    this.setState({
+      actualCard: "",
+    });
+  }
+
   render() {
-
     return (
-
       <div>
-
-        <Button />
+        <Button onClick={this.drawCard} />
         <Cards cards={this.state.chosenCard} />
         <Players />
         <Score />
-
       </div>
-
     );
-
   }
-
 }
 
 export default App;
