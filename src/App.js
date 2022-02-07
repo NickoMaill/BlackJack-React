@@ -41,6 +41,31 @@ class App extends React.Component {
       fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
         .then((res) => res.json())
         .then((res) => {
+
+          let playerScore = res.cards[this.state.cardCount].value
+
+          playerScore = parseInt(playerScore)
+          // console.log("score",playerScore);
+
+          if (res.cards[this.state.cardCount].value === "QUEEN" || res.cards[this.state.cardCount].value === "KING" || res.cards[this.state.cardCount].value === "JACK") {
+
+            this.setState({
+              scorePlayer: 10 + prevState.scorePlayer
+            })
+
+          } else if (res.cards[this.state.cardCount].value === "ACE") {
+
+            this.setState({
+              scorePlayer: 1 + prevState.scorePlayer
+            })
+
+          } else {
+            this.setState({
+              scorePlayer: playerScore + prevState.scorePlayer
+
+            })
+          }
+
           this.setState({
             playerCard: [
               res.cards[this.state.cardCount].image,

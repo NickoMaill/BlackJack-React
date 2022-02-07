@@ -7,9 +7,9 @@ class Cards extends React.Component {
         <p>CARDS</p>
         <div>
           <ul>
-            {this.props.cards.map((item) => {
+            {this.props.cards.map((item, index) => {
               return (
-                <li>
+                <li key={index}>
                   <p>
                     <img src={item} />
                   </p>
