@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 
 class Score extends React.Component {
-
-    render(){
-        return(
-            <div>
-                <div>score: {this.props.score}</div>
-            </div>
-        )
-    };
+  render() {
+    return (
+      <div>
+        <div>
+          <p>
+            score {this.props.character}: {this.props.score}
+          </p>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Score;

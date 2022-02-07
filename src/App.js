@@ -65,7 +65,8 @@ class App extends React.Component {
         <Button onClick={this.drawCard} />
         <Cards cards={this.state.playerCard} />
         <Players />
-        <Score />
+        <Score score={this.state.scorePlayer} character={"du joueur 1"} />
+        <Score score={this.state.scoreBank} character={"de la banque"} />
       </div>
     );
   }
