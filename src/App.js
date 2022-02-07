@@ -12,7 +12,6 @@ class App extends React.Component {
 
     this.state = {
       chosenCard: "",
-      actualCard: "",
     };
 
     this.drawCard = this.drawCard.bind(this);
@@ -21,14 +20,14 @@ class App extends React.Component {
   //appelle de l'API "DeckOfCardsApi"
 
   componentDidMount() {
-    fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          chosenCard: res.cards[1].image,
-        });
-        console.log(this.state.chosenCard);
-      });
+    // fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     this.setState({
+    //       chosenCard: res.cards[1].image,
+    //     });
+    //     console.log(this.state.chosenCard);
+    //   });
   }
 
   componentDidUpdate(_prevProps, prevState) {
@@ -37,7 +36,7 @@ class App extends React.Component {
         .then((res) => res.json())
         .then((res) => {
           this.setState({
-            chosenCard: res.cards[1].image,
+            chosenCard: res.cards[0].image,
           });
           console.log(this.state.chosenCard);
         });
@@ -46,7 +45,7 @@ class App extends React.Component {
 
   drawCard() {
     this.setState({
-      actualCard: "",
+      actualCard: 1,
     });
   }
 
