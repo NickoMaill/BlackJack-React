@@ -24,6 +24,7 @@ class App extends React.Component {
 
     // Bind fonction onCLick tirage des cartes du joueur
     this.drawCard = this.drawCard.bind(this);
+    this.endGame = this.endGame.bind(this);
   }
 
   //appelle de l'API "DeckOfCardsApi" et tirage initial des cartes de la banque avec score
@@ -75,6 +76,39 @@ class App extends React.Component {
     }
   }
 
+  AddCard(displayCard, scoreCard) {
+    // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
+    if (
+      cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
+      cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
+      cardsDeck[0].cards[this.state.cardCount].value === "JACK"
+    ) {
+      this.setState({
+        scoreBank: 10 + this.state.scoreBank,
+      });
+    } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
+      this.setState({
+        scoreBank: 1 + this.state.scoreBank,
+      });
+    } else {
+      this.setState({
+        // Score des cartes "standards"
+        scoreBank:
+          parseInt(cardsDeck[0].cards[this.state.cardCount].value) +
+          this.state.scoreBank,
+      });
+    }
+
+    // Récupération de l'image de la carte tirée par la banque
+    this.setState({
+      bankCards: [
+        cardsDeck[0].cards[this.state.cardCount].image,
+        ...this.state.bankCards,
+      ],
+      cardCount: this.state.cardCount + 1,
+    });
+  }
+
   // Fonction tirage cartes joueur et ajout au score
   drawCard() {
     let playerScore = cardsDeck[0].cards[this.state.cardCount].value;
@@ -113,6 +147,19 @@ class App extends React.Component {
         ...this.state.playerCard,
       ],
     });
+
+    // if (this.state.scorePlayer > 21) {
+    //   console.log("Looser")
+    // }
+  }
+
+  endGame() {
+    if (
+      this.state.scorePlayer <= 21 &&
+      this.state.scorePlayer > this.state.scoreBank
+    ) {
+      console.log("GG");
+    }
   }
 
   // RENDER
@@ -120,7 +167,8 @@ class App extends React.Component {
     return (
       <div>
         <Cards cards={this.state.bankCards} />
-        <Button onClick={this.drawCard} />
+        <Button onClick={this.drawCard} children="Draw Card" />
+        <Button onClick={this.endGame} children="Stop Game" />
         <Cards cards={this.state.playerCard} />
         <Players />
         <Score score={this.state.scorePlayer} character={"du joueur 1"} />
