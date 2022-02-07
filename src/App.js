@@ -52,6 +52,7 @@ class App extends React.Component {
     }
   }
 
+  // Fonction tirage carte
   drawCard() {
     this.setState({
       cardCount: this.state.cardCount + 1,
