@@ -45,7 +45,6 @@ class App extends React.Component {
           let playerScore = res.cards[this.state.cardCount].value
 
           playerScore = parseInt(playerScore)
-          // console.log("score",playerScore);
 
           if (res.cards[this.state.cardCount].value === "QUEEN" || res.cards[this.state.cardCount].value === "KING" || res.cards[this.state.cardCount].value === "JACK") {
 
