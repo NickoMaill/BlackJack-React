@@ -11,7 +11,13 @@ class App extends React.Component {
     super();
 
     this.state = {
-      chosenCard: "",
+      cardCount: 0,
+      bankCard: "",
+      playerCard: "",
+      scoreBank: null,
+      scorePlayer: null,
+      totalScoreBank: null,
+      totalScorePlayer: null,
     };
 
     this.drawCard = this.drawCard.bind(this);
@@ -31,12 +37,12 @@ class App extends React.Component {
   }
 
   componentDidUpdate(_prevProps, prevState) {
-    if (prevState.actualCard !== this.state.actualCard) {
+    if (prevState.cardCount !== this.state.cardCount) {
       fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
         .then((res) => res.json())
         .then((res) => {
           this.setState({
-            chosenCard: res.cards[0].image,
+            chosenCard: res.cards[this.state.cardCount].image,
           });
           console.log(this.state.chosenCard);
         });
@@ -45,7 +51,7 @@ class App extends React.Component {
 
   drawCard() {
     this.setState({
-      actualCard: 1,
+      cardCount: this.state.cardCount + 1,
     });
   }
 
