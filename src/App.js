@@ -6,13 +6,15 @@ import Cards from "./components/Cards";
 import Players from "./components/Player";
 import Score from "./components/Score";
 
+const cardsDeck = [];
+
 class App extends React.Component {
   constructor() {
     super();
 
     this.state = {
       cardCount: 0,
-      bankCard: "",
+      bankCards: [],
       playerCard: [],
       scoreBank: null,
       scorePlayer: null,
@@ -26,66 +28,66 @@ class App extends React.Component {
   //appelle de l'API "DeckOfCardsApi"
 
   componentDidMount() {
-    // fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     this.setState({
-    //       chosenCard: res.cards[1].image,
-    //     });
-    //     console.log(this.state.chosenCard);
-    //   });
+    fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
+      .then((res) => res.json())
+      .then((res) => {
+        cardsDeck.push(res);
+        console.log(cardsDeck);
+        this.setState({
+          bankCards: [
+            cardsDeck[0].cards[this.state.cardCount].image,
+            ...this.state.bankCards,
+          ],
+        });
+      });
   }
 
   componentDidUpdate(_prevProps, prevState) {
-    if (prevState.cardCount !== this.state.cardCount) {
-      fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
-        .then((res) => res.json())
-        .then((res) => {
-
-          let playerScore = res.cards[this.state.cardCount].value
-
-          playerScore = parseInt(playerScore)
-
-          if (res.cards[this.state.cardCount].value === "QUEEN" || res.cards[this.state.cardCount].value === "KING" || res.cards[this.state.cardCount].value === "JACK") {
-
-            this.setState({
-              scorePlayer: 10 + prevState.scorePlayer
-            })
-
-          } else if (res.cards[this.state.cardCount].value === "ACE") {
-
-            this.setState({
-              scorePlayer: 1 + prevState.scorePlayer
-            })
-
-          } else {
-            this.setState({
-              scorePlayer: playerScore + prevState.scorePlayer
-
-            })
-          }
-
-          this.setState({
-            playerCard: [
-              res.cards[this.state.cardCount].image,
-              ...prevState.playerCard,
-            ],
-          });
-          console.log(this.state.playerCard);
-        });
+    if (prevState.bankCards !== this.state.bankCards) {
     }
   }
 
   // Fonction tirage carte
   drawCard() {
+    let playerScore = cardsDeck[0].cards[this.state.cardCount].value;
+
+    console.log(playerScore);
+
+    playerScore = parseInt(playerScore);
+
+    if (
+      cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
+      cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
+      cardsDeck[0].cards[this.state.cardCount].value === "JACK"
+    ) {
+      this.setState({
+        scorePlayer: 10 + this.state.scorePlayer,
+        cardCount: this.state.cardCount + 1,
+      });
+    } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
+      this.setState({
+        scorePlayer: 1 + this.state.scorePlayer,
+        cardCount: this.state.cardCount + 1,
+      });
+    } else {
+      this.setState({
+        scorePlayer: playerScore + this.state.scorePlayer,
+        cardCount: this.state.cardCount + 1,
+      });
+    }
+
     this.setState({
-      cardCount: this.state.cardCount + 1,
+      playerCard: [
+        cardsDeck[0].cards[this.state.cardCount].image,
+        ...this.state.playerCard,
+      ],
     });
   }
 
   render() {
     return (
       <div>
+        <Cards cards={this.state.bankCards} />
         <Button onClick={this.drawCard} />
         <Cards cards={this.state.playerCard} />
         <Players />
