@@ -75,8 +75,9 @@ class App extends React.Component {
 
   //
   componentDidUpdate(_prevProps, prevState) {
+    // GUARD FIN DE PARTIE SI SCORE JOUEUR = 21
+
     if (prevState.scorePlayer !== this.state.scorePlayer) {
-      // GUARD FIN DE PARTIE
       if (this.state.scorePlayer === 21) {
         this.setState({
           messageResult: "WINNER",
@@ -87,6 +88,7 @@ class App extends React.Component {
         });
       }
     }
+
     // GUARD
     if (prevState.playerCardValue !== this.state.playerCardValue) {
       // REGLE SPECIALE DU SCORE 21 TETE + AS
