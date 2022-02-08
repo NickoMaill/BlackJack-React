@@ -17,6 +17,7 @@ class App extends React.Component {
       cardCount: 0,
       bankCards: [],
       playerCard: [],
+      playerCardValue: [],
       scoreBank: null,
       scorePlayer: null,
       totalScoreBank: null,
@@ -73,7 +74,19 @@ class App extends React.Component {
 
   //
   componentDidUpdate(_prevProps, prevState) {
-    if (prevState.bankCards !== this.state.bankCards) {
+    console.log("test77", this.state.playerCardValue);
+
+    if (prevState.playerCardValue !== this.state.playerCardValue) {
+      if (
+        this.state.playerCardValue.toString().match(/QUEEN|JACK|KING|10/) &&
+        this.state.playerCardValue.toString().match(/ACE/) &&
+        this.state.playerCardValue.length === 2
+      ) {
+        console.log("test121", this.state.playerCardValue);
+        this.setState({
+          scorePlayer: 21,
+        });
+      }
     }
   }
 
@@ -84,6 +97,19 @@ class App extends React.Component {
     console.log(playerScore);
 
     playerScore = parseInt(playerScore);
+
+    // Récupération de l'image et valeur de la carte tirée
+    this.setState({
+      playerCard: [
+        cardsDeck[0].cards[this.state.cardCount].image,
+        ...this.state.playerCard,
+      ],
+      playerCardValue: [
+        cardsDeck[0].cards[this.state.cardCount].value,
+        ...this.state.playerCardValue,
+      ],
+    });
+    console.log(this.state.playerCardValue);
 
     // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
     if (
@@ -107,18 +133,6 @@ class App extends React.Component {
         cardCount: this.state.cardCount + 1,
       });
     }
-
-    // Récupération de l'image de la carte tirée
-    this.setState({
-      playerCard: [
-        cardsDeck[0].cards[this.state.cardCount].image,
-        ...this.state.playerCard,
-      ],
-    });
-
-    // if (this.state.scorePlayer > 21) {
-    //   console.log("Looser")
-    // }
   }
 
   endGame() {
