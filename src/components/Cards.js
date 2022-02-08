@@ -13,7 +13,6 @@ class Cards extends React.Component {
                   <p>
                     <img src={item} />
                   </p>
-                  <p></p>
                 </li>
               );
             })}

@@ -65,10 +65,11 @@ class App extends React.Component {
         // Récupération de l'image de la carte tirée par la banque
         this.setState({
           bankCards: [
-            cardsDeck[0].cards[this.state.cardCount].image,
+            cardsDeck[0].cards[0].image,
+            cardsDeck[0].cards[1].image,
             ...this.state.bankCards,
           ],
-          cardCount: this.state.cardCount + 1,
+          cardCount: this.state.cardCount + 2,
         });
       });
   }
@@ -106,17 +107,6 @@ class App extends React.Component {
 
   // Fonction tirage cartes joueur et ajout au score
   drawCard() {
-    // GUARD FIN DE PARTIE
-    // if (this.state.scorePlayer === 21) {
-    //   this.setState({
-    //     messageResult: "WINNER",
-    //   });
-    // } else if (this.state.playerScore > 21) {
-    //   this.setState({
-    //     messageResult: "LOOSER",
-    //   });
-    // }
-
     let playerScore = cardsDeck[0].cards[this.state.cardCount].value;
 
     console.log(playerScore);
@@ -161,6 +151,13 @@ class App extends React.Component {
   }
 
   endGame() {
+    // this.setState({
+    //   bankCards: [
+    //     cardsDeck[0].cards[this.state.cardCount].image,
+    //     ...this.state.bankCards,
+    //   ],
+    // });
+
     if (
       this.state.scorePlayer <= 21 &&
       this.state.scorePlayer > this.state.scoreBank
@@ -181,6 +178,7 @@ class App extends React.Component {
       <div>
         <Result resultGame={this.state.messageResult} />
         <Cards cards={this.state.bankCards} />
+
         <Button onClick={this.drawCard} children="Draw Card" />
         <Button onClick={() => this.endGame()} children="Stop Game" />
         <Cards cards={this.state.playerCard} />
