@@ -7,7 +7,7 @@ import Players from "./components/Player";
 import Result from "./components/Result";
 import Score from "./components/Score";
 
-const cardsDeck = [];
+let cardsDeck = [];
 
 class App extends React.Component {
   constructor() {
@@ -27,13 +27,27 @@ class App extends React.Component {
 
     // Bind fonction onCLick tirage des cartes du joueur
     this.drawCard = this.drawCard.bind(this);
+    this.reset = this.reset.bind(this);
     // this.endGame = this.endGame.bind(this);
   }
 
   //appel de l'API "DeckOfCardsApi" et tirage initial des cartes de la banque avec score
 
-  componentDidMount() {
+  reset() {
+    console.log("test cardsDeck", cardsDeck);
+    this.setState({
+      cardCount: 0,
+      bankCards: [],
+      playerCard: [],
+      playerCardValue: [],
+      scoreBank: null,
+      scorePlayer: null,
+      totalScoreBank: null,
+      totalScorePlayer: null,
+      messageResult: "",
+    });
     // Requête initial de l'API
+
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
       .then((res) => res.json())
       .then((res) => {
@@ -76,6 +90,10 @@ class App extends React.Component {
 
   //
   componentDidUpdate(_prevProps, prevState) {
+    if (prevState.messageResult !== this.state.messageResult) {
+      cardsDeck = [];
+    }
+
     // GUARD FIN DE PARTIE SI SCORE JOUEUR = 21
 
     if (prevState.scorePlayer !== this.state.scorePlayer) {
@@ -101,6 +119,13 @@ class App extends React.Component {
         this.setState({
           scorePlayer: 21,
         });
+      }
+    }
+
+    //REGLE DE LA LIMITE DE 5 CARTES PAR PARTIE
+    if (prevState.playerCard.length !== this.state.playerCard.length) {
+      if (this.state.playerCard.length === 5) {
+        this.endGame();
       }
     }
   }
@@ -178,7 +203,7 @@ class App extends React.Component {
       <div>
         <Result resultGame={this.state.messageResult} />
         <Cards cards={this.state.bankCards} />
-
+        <Button onClick={this.reset} children="RESET" />
         <Button onClick={this.drawCard} children="Draw Card" />
         <Button onClick={() => this.endGame()} children="Stop Game" />
         <Cards cards={this.state.playerCard} />
