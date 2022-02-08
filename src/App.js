@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import "./components/StyleComponent/style.css";
 
 import Button from "./components/Button.js";
 import Cards from "./components/Cards";
@@ -202,6 +203,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <div>
+          <img className="logo" src="/images/Logo.png" />
+          <h1>BlackJack</h1>
+        </div>
+
         <Result resultGame={this.state.messageResult} />
         <Cards cards={this.state.bankCards} />
         <Button onClick={this.reset} children="RESET" />
