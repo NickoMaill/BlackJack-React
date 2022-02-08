@@ -1,24 +1,31 @@
 import React from "react";
+import "../Style/Cards.css"
 
 class Cards extends React.Component {
   render() {
     return (
+
       <div>
-        <p>CARDS</p>
+
         <div>
-          <ul>
+
+          <ul className="cards-ul">
+
             {this.props.cards.map((item, index) => {
               return (
+
                 <li key={index}>
-                  <p>
-                    <img src={item} />
-                  </p>
+                  <img className="cards" src={item} />
                 </li>
+
               );
             })}
           </ul>
+
         </div>
+
       </div>
+
     );
   }
 }

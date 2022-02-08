@@ -1,13 +1,13 @@
 import React from 'react';
+import "./StyleComponent/Players.css"
 
 class Player extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>Player</p>
-                <img src='/images/Croupier2.png' alt='un croupier' />
-                <img src='/images/Joueur2.png' alt='un joueur' />
+            <div className="player-container">
+                <p>{this.props.children}</p>
+                <img className="player-img" src={this.props.playerImg} alt={this.props.altPlayer} />
             </div>
         )
     }

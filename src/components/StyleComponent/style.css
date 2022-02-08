@@ -41,24 +41,28 @@ div {
 }
 
 h1 {
-  margin-top: 35px;
   font-size: 50px;
   font-family: "Font";
-  margin-bottom: 350px;
+  margin: 0 0 2rem 0;
 }
 
 h1 {
   text-shadow: 0 4px 0 white, 0 -4px 0 black;
 }
 
-#draw {
+.draw {
   background-color: rgb(62, 226, 62);
 }
 
-#reset {
+.reset {
   background-color: white;
 }
 
-#stop {
+.stop {
   background-color: rgb(204, 38, 38);
+}
+
+.btn-group{
+  display: flex;
+  justify-content: center;
 }

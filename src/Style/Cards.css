@@ -1,0 +1,16 @@
+.cards-ul{
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.cards{
+    width: 6rem;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+}

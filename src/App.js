@@ -62,7 +62,16 @@ class App extends React.Component {
             cardsDeck[0].cards[1].image,
             ...this.state.bankCards,
           ],
-          cardCount: this.state.cardCount + 2,
+
+          //rajout des deux cartes du joueur a l'initialisation de la partie (nico)
+
+          playerCard: [
+            cardsDeck[0].cards[2].image,
+            cardsDeck[0].cards[3].image,
+            ...this.state.playerCard,
+          ],
+
+          cardCount: this.state.cardCount + 4,
         });
 
         for (let i = 0; i < 2; i++) {
@@ -84,6 +93,32 @@ class App extends React.Component {
               // Score des cartes "standards"
               scoreBank:
                 parseInt(cardsDeck[0].cards[i].value) + this.state.scoreBank,
+
+            });
+          }
+        }
+
+        //répétition de la boucle précédente adaptée cette fois-ci pour les cartes du joueur 
+
+        for (let i = 2; i < 4; i++) {
+
+          if (
+            cardsDeck[0].cards[i].value === "QUEEN" ||
+            cardsDeck[0].cards[i].value === "KING" ||
+            cardsDeck[0].cards[i].value === "JACK"
+          ) {
+            this.setState({
+              scorePlayer: 10 + this.state.scorePlayer
+            });
+          } else if (cardsDeck[0].cards[i].value === "ACE") {
+            this.setState({
+              scorePlayer: 1 + this.state.scorePlayer
+            });
+          } else {
+            this.setState({
+              // Score des cartes "standards"
+              scorePlayer:
+                parseInt(cardsDeck[0].cards[i].value) + this.state.scorePlayer
             });
           }
         }
@@ -202,21 +237,67 @@ class App extends React.Component {
   // RENDER
   render() {
     return (
-      <div>
-        <div>
-          <img className="logo" src="/images/Logo.png" />
+      <div className="app-container">
+
+        <div className="title-container">
+          <img
+            className="logo"
+            src="/images/Logo.png"
+          />
           <h1>BlackJack</h1>
         </div>
 
-        <Result resultGame={this.state.messageResult} />
-        <Cards cards={this.state.bankCards} />
-        <Button onClick={this.reset} children="RESET" />
-        <Button onClick={this.drawCard} children="Draw Card" />
-        <Button onClick={() => this.endGame()} children="Stop Game" />
-        <Cards cards={this.state.playerCard} />
-        <Players />
+        <div className="player-container croupier-container">
+
+          <Players
+            children="Croupier"
+            playerImg="/images/Croupier2.png"
+            altPlayer="Le croupier contre qui vous jouez"
+          />
+
+          <div className="card-container">
+            <Cards
+              cards={this.state.bankCards}
+            />
+          </div>
+        </div>
+
+        <div className="player-container player1-container">
+
+          <div className="card-container">
+            <Cards
+              cards={this.state.playerCard}
+            />
+          </div>
+
+          <Players
+            children="Votre Main"
+          />
+        </div>
+        <div className="btn-group">
+
+          <Button
+            buttonColor="reset"
+            onClick={this.reset}
+            children="Commencer"
+          />
+          <Button
+            buttonColor="draw"
+            onClick={this.drawCard}
+            children="Tirer Carte"
+          />
+          <Button
+            buttonColor="stop"
+            onClick={() => this.endGame()}
+            children="Rester"
+          />
+
+        </div>
         <Score score={this.state.scorePlayer} character={"du joueur 1"} />
         <Score score={this.state.scoreBank} character={"de la banque"} />
+        <Result
+          resultGame={this.state.messageResult}
+        />
       </div>
     );
   }
