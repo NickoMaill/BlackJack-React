@@ -22,6 +22,7 @@ class App extends React.Component {
       scorePlayer: null,
       totalScoreBank: null,
       totalScorePlayer: null,
+      messageResult: "",
     };
 
     // Bind fonction onCLick tirage des cartes du joueur
@@ -29,7 +30,7 @@ class App extends React.Component {
     // this.endGame = this.endGame.bind(this);
   }
 
-  //appelle de l'API "DeckOfCardsApi" et tirage initial des cartes de la banque avec score
+  //appel de l'API "DeckOfCardsApi" et tirage initial des cartes de la banque avec score
 
   componentDidMount() {
     // Requête initial de l'API
@@ -74,15 +75,14 @@ class App extends React.Component {
 
   //
   componentDidUpdate(_prevProps, prevState) {
-    console.log("test77", this.state.playerCardValue);
-
+    // GUARD
     if (prevState.playerCardValue !== this.state.playerCardValue) {
+      // REGLE SPECIALE DU SCORE 21 TETE + AS
       if (
         this.state.playerCardValue.toString().match(/QUEEN|JACK|KING|10/) &&
         this.state.playerCardValue.toString().match(/ACE/) &&
         this.state.playerCardValue.length === 2
       ) {
-        console.log("test121", this.state.playerCardValue);
         this.setState({
           scorePlayer: 21,
         });
@@ -140,9 +140,13 @@ class App extends React.Component {
       this.state.scorePlayer <= 21 &&
       this.state.scorePlayer > this.state.scoreBank
     ) {
-      return <Result resultGame="WINNER" />;
+      this.setState({
+        messageResult: "WINNER",
+      });
     } else {
-      return <Result resultGame="LOOSER" />;
+      this.setState({
+        messageResult: "LOOSER",
+      });
     }
   }
 
@@ -150,7 +154,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {this.endGame()}
+        <Result resultGame={this.state.messageResult} />
         <Cards cards={this.state.bankCards} />
         <Button onClick={this.drawCard} children="Draw Card" />
         <Button onClick={() => this.endGame()} children="Stop Game" />
