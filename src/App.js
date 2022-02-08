@@ -54,28 +54,6 @@ class App extends React.Component {
         cardsDeck.push(res);
         console.log(cardsDeck);
 
-        // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
-        if (
-          cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
-          cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
-          cardsDeck[0].cards[this.state.cardCount].value === "JACK"
-        ) {
-          this.setState({
-            scoreBank: 10 + this.state.scoreBank,
-          });
-        } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
-          this.setState({
-            scoreBank: 1 + this.state.scoreBank,
-          });
-        } else {
-          this.setState({
-            // Score des cartes "standards"
-            scoreBank:
-              parseInt(cardsDeck[0].cards[this.state.cardCount].value) +
-              this.state.scoreBank,
-          });
-        }
-
         // Récupération de l'image de la carte tirée par la banque
         this.setState({
           bankCards: [
@@ -85,6 +63,29 @@ class App extends React.Component {
           ],
           cardCount: this.state.cardCount + 2,
         });
+
+        for (let i = 0; i < 2; i++) {
+          // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
+          if (
+            cardsDeck[0].cards[i].value === "QUEEN" ||
+            cardsDeck[0].cards[i].value === "KING" ||
+            cardsDeck[0].cards[i].value === "JACK"
+          ) {
+            this.setState({
+              scoreBank: 10 + this.state.scoreBank,
+            });
+          } else if (cardsDeck[0].cards[i].value === "ACE") {
+            this.setState({
+              scoreBank: 1 + this.state.scoreBank,
+            });
+          } else {
+            this.setState({
+              // Score des cartes "standards"
+              scoreBank:
+                parseInt(cardsDeck[0].cards[i].value) + this.state.scoreBank,
+            });
+          }
+        }
       });
   }
 
