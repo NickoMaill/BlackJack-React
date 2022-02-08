@@ -75,6 +75,18 @@ class App extends React.Component {
 
   //
   componentDidUpdate(_prevProps, prevState) {
+    if (prevState.scorePlayer !== this.state.scorePlayer) {
+      // GUARD FIN DE PARTIE
+      if (this.state.scorePlayer === 21) {
+        this.setState({
+          messageResult: "WINNER",
+        });
+      } else if (this.state.scorePlayer > 21) {
+        this.setState({
+          messageResult: "LOOSER",
+        });
+      }
+    }
     // GUARD
     if (prevState.playerCardValue !== this.state.playerCardValue) {
       // REGLE SPECIALE DU SCORE 21 TETE + AS
@@ -92,6 +104,17 @@ class App extends React.Component {
 
   // Fonction tirage cartes joueur et ajout au score
   drawCard() {
+    // GUARD FIN DE PARTIE
+    // if (this.state.scorePlayer === 21) {
+    //   this.setState({
+    //     messageResult: "WINNER",
+    //   });
+    // } else if (this.state.playerScore > 21) {
+    //   this.setState({
+    //     messageResult: "LOOSER",
+    //   });
+    // }
+
     let playerScore = cardsDeck[0].cards[this.state.cardCount].value;
 
     console.log(playerScore);
