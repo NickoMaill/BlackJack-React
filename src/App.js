@@ -41,6 +41,7 @@ class App extends React.Component {
     this.setState({
       cardCount: 0,
       bankCards: [],
+      bankCardValue: [],
       playerCard: [],
       playerCardValue: [],
       scoreBank: 0,
@@ -106,7 +107,7 @@ class App extends React.Component {
           this.state.bankCardValue.length === 2
         ) {
           this.setState({
-            scoreBank: 21,
+            scoreBank: 10,
           });
         }
 
@@ -259,84 +260,95 @@ class App extends React.Component {
 
   // RENDER
   render() {
-    return (
-      <div className="app-container">
-        {/* Header */}
+    if (this.state.messageResult === "WINNER") {
+      return (
+        <Result
+          resultGame="/images/win.jpg"
+          reset={this.reset} />
+      )
 
-        <Header />
+    } else if (this.state.messageResult === "LOOSER"){
+      return (
+        <Result
+          resultGame="/images/lose.jpg"
+          reset={this.reset} />
+      )
 
-        <div className="content-container">
+    } else if (this.state.messageResult === "") {
+      return (
+        <div className="app-container">
+          {/* Header */}
 
-          {/* High Page */}
+          <Header />
 
-          <div className="title-container">
-            <img className="logo" src="/images/Logo.png" />
+          <div className="content-container">
 
-            <h1>BlackJack</h1>
-          </div>
+            {/* High Page */}
 
-          {/* Result Monitor */}
+            <div className="title-container">
+              <img className="logo" src="/images/Logo.png" />
 
-          <Result resultGame={this.state.messageResult} />
-
-          {/* Croupier Part */}
-
-          <div className="player-container croupier-container">
-            <Players
-              playerImg="/images/Croupier2.png"
-              altPlayer="Le croupier contre qui vous jouez"
-            />
-
-            <div className="card-container">
-              <Score score={this.state.totalScoreBank} />
-              <Cards cards={this.state.bankCards} />
-              <Score score={this.state.scoreBank} />
-            </div>
-          </div>
-
-          {/* Player Part */}
-
-          <div className="player-container player1-container">
-            <div className="card-container">
-              <Score score={this.state.totalScorePlayer} />
-              <Cards cards={this.state.playerCard} />
-              <Score score={this.state.scorePlayer} />
+              <h1>BlackJack</h1>
             </div>
 
-            <Players children="Votre Main" color="#fff" />
+            {/* Croupier Part */}
+
+            <div className="player-container croupier-container">
+              <Players
+                playerImg="/images/Croupier2.png"
+                altPlayer="Le croupier contre qui vous jouez"
+              />
+
+              <div className="card-container">
+                <Score score={this.state.totalScoreBank} />
+                <Cards cards={this.state.bankCards} />
+                <Score score={this.state.scoreBank} />
+              </div>
+            </div>
+
+            {/* Player Part */}
+
+            <div className="player-container player1-container">
+              <div className="card-container">
+                <Score score={this.state.totalScorePlayer} />
+                <Cards cards={this.state.playerCard} />
+                <Score score={this.state.scorePlayer} />
+              </div>
+
+              <Players children="Votre Main" color="#fff" />
+            </div>
+
+            {/* Choice Button */}
+
+            <div className="btn-group">
+              <Button
+                buttonColor="reset"
+                onClick={this.reset}
+                children="Commencer"
+              />
+              <Button
+                buttonColor="draw"
+                onClick={this.drawCard}
+                children="Tirer Carte"
+              />
+              <Button
+                buttonColor="stop"
+                onClick={() => this.endGame()}
+                children="Rester"
+              />
+            </div>
+
           </div>
 
-          {/* Choice Button */}
+          {/* Footer */}
+          <footer className="footer">
 
-          <div className="btn-group">
-            <Button
-              buttonColor="reset"
-              onClick={this.reset}
-              children="Commencer"
-            />
-            <Button
-              buttonColor="draw"
-              onClick={this.drawCard}
-              children="Tirer Carte"
-            />
-            <Button
-              buttonColor="stop"
-              onClick={() => this.endGame()}
-              children="Rester"
-            />
-          </div>
+            <Footer />
 
+          </footer>
         </div>
-
-
-        {/* Footer */}
-        <footer className="footer">
-          
-          <Footer />
-
-        </footer>
-      </div>
-    );
+      );
+    }
   }
 }
 
