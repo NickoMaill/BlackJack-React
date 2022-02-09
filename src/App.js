@@ -31,7 +31,7 @@ class App extends React.Component {
     // Bind fonction onCLick tirage des cartes du joueur
     this.drawCard = this.drawCard.bind(this);
     this.reset = this.reset.bind(this);
-    // this.endGame = this.endGame.bind(this);
+    this.autoBankDraw = this.autoBankDraw.bind(this);
   }
 
   //appel de l'API "DeckOfCardsApi" et tirage initial des cartes de la banque avec score
@@ -189,6 +189,49 @@ class App extends React.Component {
     }
   }
 
+  // FONCTION DE TIRAGE AUTOMATIQUE D'UNE CARTE POUR LA BANQUE
+
+  autoBankDraw() {
+    let bankScore = cardsDeck[0].cards[this.state.cardCount].value;
+    bankScore = parseInt(bankScore);
+
+    // Récupération de l'image et valeur de la carte tirée
+    this.setState({
+      bankCards: [
+        cardsDeck[0].cards[this.state.cardCount].image,
+        ...this.state.bankCards,
+      ],
+      bankCardValue: [
+        cardsDeck[0].cards[this.state.cardCount].value,
+        ...this.state.bankCardValue,
+      ],
+    });
+    console.log(this.state.bankCardValue);
+
+    // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
+    if (
+      cardsDeck[0].cards[this.state.cardCount].value === "QUEEN" ||
+      cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
+      cardsDeck[0].cards[this.state.cardCount].value === "JACK"
+    ) {
+      this.setState({
+        scoreBank: 10 + this.state.scoreBank,
+        cardCount: this.state.cardCount + 1,
+      });
+    } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
+      this.setState({
+        scoreBank: 1 + this.state.scoreBank,
+        cardCount: this.state.cardCount + 1,
+      });
+    } else {
+      //Score des cartes standards
+      this.setState({
+        scoreBank: bankScore + this.state.scoreBank,
+        cardCount: this.state.cardCount + 1,
+      });
+    }
+  }
+
   // Fonction tirage cartes joueur et ajout au score
   drawCard() {
     let playerScore = cardsDeck[0].cards[this.state.cardCount].value;
@@ -235,12 +278,10 @@ class App extends React.Component {
   }
 
   endGame() {
-    // this.setState({
-    //   bankCards: [
-    //     cardsDeck[0].cards[this.state.cardCount].image,
-    //     ...this.state.bankCards,
-    //   ],
-    // });
+    // APPEL FONCTION DE TIRAGE AUTOMATIQUE D'UNE CARTE SI LA BANQUE EST EN DESSOUS DE 17 AU MOMENT DE TERMINER LE JEU
+    if (this.state.scoreBank < 17) {
+      this.autoBankDraw();
+    }
 
     if (
       this.state.scorePlayer <= 21 &&
@@ -261,19 +302,9 @@ class App extends React.Component {
   // RENDER
   render() {
     if (this.state.messageResult === "WINNER") {
-      return (
-        <Result
-          resultGame="/images/win.jpg"
-          reset={this.reset} />
-      )
-
-    } else if (this.state.messageResult === "LOOSER"){
-      return (
-        <Result
-          resultGame="/images/lose.jpg"
-          reset={this.reset} />
-      )
-
+      return <Result resultGame="/images/win.jpg" reset={this.reset} />;
+    } else if (this.state.messageResult === "LOOSER") {
+      return <Result resultGame="/images/lose.jpg" reset={this.reset} />;
     } else if (this.state.messageResult === "") {
       return (
         <div className="app-container">
@@ -282,7 +313,6 @@ class App extends React.Component {
           <Header />
 
           <div className="content-container">
-
             {/* High Page */}
 
             <div className="title-container">
@@ -337,14 +367,11 @@ class App extends React.Component {
                 children="Rester"
               />
             </div>
-
           </div>
 
           {/* Footer */}
           <footer className="footer">
-
             <Footer />
-
           </footer>
         </div>
       );
