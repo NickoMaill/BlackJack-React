@@ -78,3 +78,16 @@ p {
   text-align: start;
 }
 
+@media (max-width: 820px) {
+  .card-container {
+      flex-direction: column;
+  }
+  .btn-group {
+    flex-direction: column;
+    margin-bottom: 5px;
+    gap: 15px;
+  }
+  .player1-container {
+    margin-top: 1rem;
+  }
+}
