@@ -37,9 +37,23 @@ p {
   font-family: "Font2";
 }
 
+.main-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.title-score-div{
+  display: flex;
+  justify-content: space-between;
+}
+
+.title-score{
+  text-align: center;
+}
+
 .card-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -63,3 +77,4 @@ p {
   padding-bottom: 0.1rem;
   text-align: start;
 }
+
