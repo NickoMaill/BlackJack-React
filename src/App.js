@@ -20,6 +20,7 @@ class App extends React.Component {
     this.state = {
       cardCount: 0,
       bankCards: [],
+      bankCardValue: [],
       playerCard: [],
       playerCardValue: [],
       scoreBank: 0,
@@ -46,8 +47,6 @@ class App extends React.Component {
       playerCardValue: [],
       scoreBank: 0,
       scorePlayer: 0,
-      totalScoreBank: 0,
-      totalScorePlayer: 0,
       messageResult: "",
     });
     // Requête initial de l'API
@@ -174,6 +173,7 @@ class App extends React.Component {
       if (this.state.scorePlayer === 21) {
         this.setState({
           messageResult: "WINNER",
+          totalScorePlayer: this.state.totalScorePlayer + 1,
         });
       } else if (this.state.scorePlayer > 21) {
         this.setState({
@@ -249,10 +249,12 @@ class App extends React.Component {
     ) {
       this.setState({
         messageResult: "WINNER",
+        totalScorePlayer: this.state.totalScorePlayer + 1,
       });
     } else {
       this.setState({
         messageResult: "LOOSER",
+        totalScoreBank: this.state.totalScoreBank + 1,
       });
     }
   }
@@ -286,7 +288,7 @@ class App extends React.Component {
           />
 
           <div className="card-container">
-            <Score score={this.state.totalScorePlayer} />
+            <Score score={this.state.totalScoreBank} />
             <Cards cards={this.state.bankCards} />
             <Score score={this.state.scoreBank} />
           </div>
