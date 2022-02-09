@@ -3,10 +3,16 @@ import "./StyleComponent/Score.css"
 
 class Score extends React.Component {
 
-    render(){
-        return(
-            <div className='score-div'>
-                <p className='score-count'>{this.props.score}</p>
+    render() {
+        return (
+            <div>
+                <div>
+                    <p>{this.props.children}</p>
+                </div>
+
+                <div className={`score-div ${this.props.scoreType}`}>
+                    <p className='score-count'>{this.props.score}</p>
+                </div>
             </div>
         )
     };

@@ -96,7 +96,7 @@ class App extends React.Component {
           this.state.playerCardValue.length === 2
         ) {
           this.setState({
-            scorePlayer: 21,
+            scorePlayer: 10,
           });
         }
 
@@ -178,9 +178,9 @@ class App extends React.Component {
         )
       } else if (this.state.scorePlayer > 21) {
         setTimeout(() =>
-        this.setState({
-          messageResult: "LOOSER",
-        }), 1500
+          this.setState({
+            messageResult: "LOOSER",
+          }), 1500
         )
       }
     }
@@ -282,6 +282,7 @@ class App extends React.Component {
   }
 
   endGame() {
+    console.log("endGame");
     // APPEL FONCTION DE TIRAGE AUTOMATIQUE D'UNE CARTE SI LA BANQUE EST EN DESSOUS DE 17 AU MOMENT DE TERMINER LE JEU
 
     if (this.state.scorePlayer !== 0 && this.state.scoreBank !== 0) {
@@ -307,7 +308,7 @@ class App extends React.Component {
             totalScoreBank: this.state.totalScoreBank + 1,
           }), 1500);
       }
-    } else { alert("lance dabord le jeu"); }
+    } else { alert("Lance d'abord le jeu"); }
 
   }
 
@@ -338,27 +339,57 @@ class App extends React.Component {
 
             {/* Croupier Part */}
 
-            <div className="player-container croupier-container">
+            <div>
               <Players
                 playerImg="/images/Croupier2.png"
                 altPlayer="Le croupier contre qui vous jouez"
               />
 
-              <div className="card-container">
-                <Score score={this.state.totalScoreBank} />
-                <Cards cards={this.state.bankCards} />
-                <Score score={this.state.scoreBank} />
-              </div>
             </div>
 
-            {/* Player Part */}
+            <div className="main-container">
 
-            <div className="player-container player1-container">
-              <div className="card-container">
-                <Score score={this.state.totalScorePlayer} />
-                <Cards cards={this.state.playerCard} />
-                <Score score={this.state.scorePlayer} />
+              <div className="title-score-div">
+                <h3 className="title-score">Score Total</h3>
+                <h3 className="title-score">Score des cartes</h3>
               </div>
+              <div className="game-container">
+
+                <div className="player-container croupier-container">
+
+                  <div className="card-container">
+                    <Score score={this.state.totalScoreBank}
+                      scoreType="total-score"
+                      children="Dealer"
+                    />
+                    <Cards cards={this.state.bankCards} />
+                    <Score score={this.state.scoreBank}
+                      scoreType="current-score"
+                      children="Dealer"
+                    />
+                  </div>
+                </div>
+
+                {/* Player Part */}
+
+                <div className="player-container player1-container">
+
+                  <div className="card-container">
+                    <Score score={this.state.totalScorePlayer}
+                      scoreType="total-score"
+                      children="Joueur"
+                    />
+                    <Cards cards={this.state.playerCard} />
+                    <Score score={this.state.scorePlayer}
+                      scoreType="current-score"
+                      children="Joueur"
+                    />
+                  </div>
+
+                </div>
+
+              </div>
+
 
               <Players children="Votre Main" color="#fff" />
             </div>
@@ -369,7 +400,7 @@ class App extends React.Component {
               <Button
                 buttonColor="reset"
                 onClick={this.reset}
-                children="Commencer"
+                children="Jouer"
               />
               <Button
                 buttonColor="draw"
@@ -378,8 +409,8 @@ class App extends React.Component {
               />
               <Button
                 buttonColor="stop"
-                onClick={() => this.endGame()}
-                children="Rester"
+                onClick={this.endGame}
+                children="Passer"
               />
             </div>
           </div>
