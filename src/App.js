@@ -9,7 +9,7 @@ import Result from "./components/Result";
 import Score from "./components/Score";
 import PartyScore from "./components/PartyScore";
 import Header from "./components/Header";
-import Footer from "./components/Footer"
+import Footer from "./components/Footer";
 
 let cardsDeck = [];
 
@@ -66,6 +66,13 @@ class App extends React.Component {
             ...this.state.bankCards,
           ],
 
+          // Ajout des valeurs cartes banque pour règle spéciale des 21
+          bankCardValue: [
+            cardsDeck[0].cards[0].value,
+            cardsDeck[0].cards[1].value,
+            ...this.state.bankCardValue,
+          ],
+
           //rajout des deux cartes du joueur a l'initialisation de la partie (nico)
 
           playerCard: [
@@ -74,8 +81,37 @@ class App extends React.Component {
             ...this.state.playerCard,
           ],
 
+          // Ajout des valeurs cartes joueur pour règle spéciale des 21
+          playerCardValue: [
+            cardsDeck[0].cards[2].value,
+            cardsDeck[0].cards[3].value,
+            ...this.state.playerCardValue,
+          ],
+
           cardCount: this.state.cardCount + 4,
         });
+
+        // REGLE SPECIALE DU SCORE 21 TETE + AS POUR LE PLAYER
+        if (
+          this.state.playerCardValue.toString().match(/QUEEN|JACK|KING|10/) &&
+          this.state.playerCardValue.toString().match(/ACE/) &&
+          this.state.playerCardValue.length === 2
+        ) {
+          this.setState({
+            scorePlayer: 21,
+          });
+        }
+
+        // REGLE SPECIALE DU SCORE 21 TETE + AS POUR LA BANQUE
+        if (
+          this.state.bankCardValue.toString().match(/QUEEN|JACK|KING|10/) &&
+          this.state.bankCardValue.toString().match(/ACE/) &&
+          this.state.bankCardValue.length === 2
+        ) {
+          this.setState({
+            scoreBank: 21,
+          });
+        }
 
         for (let i = 0; i < 2; i++) {
           // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
@@ -96,32 +132,30 @@ class App extends React.Component {
               // Score des cartes "standards"
               scoreBank:
                 parseInt(cardsDeck[0].cards[i].value) + this.state.scoreBank,
-
             });
           }
         }
 
-        //répétition de la boucle précédente adaptée cette fois-ci pour les cartes du joueur 
+        //répétition de la boucle précédente adaptée cette fois-ci pour les cartes du joueur
 
         for (let i = 2; i < 4; i++) {
-
           if (
             cardsDeck[0].cards[i].value === "QUEEN" ||
             cardsDeck[0].cards[i].value === "KING" ||
             cardsDeck[0].cards[i].value === "JACK"
           ) {
             this.setState({
-              scorePlayer: 10 + this.state.scorePlayer
+              scorePlayer: 10 + this.state.scorePlayer,
             });
           } else if (cardsDeck[0].cards[i].value === "ACE") {
             this.setState({
-              scorePlayer: 1 + this.state.scorePlayer
+              scorePlayer: 1 + this.state.scorePlayer,
             });
           } else {
             this.setState({
               // Score des cartes "standards"
               scorePlayer:
-                parseInt(cardsDeck[0].cards[i].value) + this.state.scorePlayer
+                parseInt(cardsDeck[0].cards[i].value) + this.state.scorePlayer,
             });
           }
         }
@@ -144,20 +178,6 @@ class App extends React.Component {
       } else if (this.state.scorePlayer > 21) {
         this.setState({
           messageResult: "LOOSER",
-        });
-      }
-    }
-
-    // GUARD
-    if (prevState.playerCardValue !== this.state.playerCardValue) {
-      // REGLE SPECIALE DU SCORE 21 TETE + AS
-      if (
-        this.state.playerCardValue.toString().match(/QUEEN|JACK|KING|10/) &&
-        this.state.playerCardValue.toString().match(/ACE/) &&
-        this.state.playerCardValue.length === 2
-      ) {
-        this.setState({
-          scorePlayer: 21,
         });
       }
     }
@@ -241,7 +261,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="app-container">
-
         {/* Header */}
 
         <Header />
@@ -249,75 +268,45 @@ class App extends React.Component {
         {/* High Page */}
 
         <div className="title-container">
-
-          <img
-            className="logo"
-            src="/images/Logo.png"
-          />
+          <img className="logo" src="/images/Logo.png" />
 
           <h1>BlackJack</h1>
-
         </div>
 
         {/* Result Monitor */}
 
-        <Result
-          resultGame={this.state.messageResult}
-        />
+        <Result resultGame={this.state.messageResult} />
 
         {/* Croupier Part */}
 
         <div className="player-container croupier-container">
-
           <Players
             playerImg="/images/Croupier2.png"
             altPlayer="Le croupier contre qui vous jouez"
           />
 
           <div className="card-container">
-            <Score
-              score={this.state.totalScorePlayer}
-            />
-            <Cards
-              cards={this.state.bankCards}
-            />
-            <Score
-              score={this.state.scoreBank}
-            />
-
+            <Score score={this.state.totalScorePlayer} />
+            <Cards cards={this.state.bankCards} />
+            <Score score={this.state.scoreBank} />
           </div>
-
         </div>
 
         {/* Player Part */}
 
         <div className="player-container player1-container">
-
           <div className="card-container">
-
-            <Score
-              score={this.state.totalScorePlayer}
-            />
-            <Cards
-              cards={this.state.playerCard}
-            />
-            <Score
-              score={this.state.scorePlayer}
-            />
-
+            <Score score={this.state.totalScorePlayer} />
+            <Cards cards={this.state.playerCard} />
+            <Score score={this.state.scorePlayer} />
           </div>
 
-          <Players
-            children="Votre Main"
-            color="#fff"
-          />
-
+          <Players children="Votre Main" color="#fff" />
         </div>
 
         {/* Choice Button */}
 
         <div className="btn-group">
-
           <Button
             buttonColor="reset"
             onClick={this.reset}
@@ -333,13 +322,11 @@ class App extends React.Component {
             onClick={() => this.endGame()}
             children="Rester"
           />
-
         </div>
 
         {/* Footer */}
 
         <Footer />
-
       </div>
     );
   }
