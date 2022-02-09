@@ -425,7 +425,7 @@ class App extends React.Component {
               />
               <Button
                 buttonColor="stop"
-                onClick={this.endGame}
+                onClick={() => this.endGame()}
                 children="Passer"
               />
             </div>
