@@ -170,14 +170,18 @@ class App extends React.Component {
 
     if (prevState.scorePlayer !== this.state.scorePlayer) {
       if (this.state.scorePlayer === 21) {
-        this.setState({
-          messageResult: "WINNER",
-          totalScorePlayer: this.state.totalScorePlayer + 1,
-        });
+        setTimeout(() =>
+          this.setState({
+            messageResult: "WINNER",
+            totalScorePlayer: this.state.totalScorePlayer + 1,
+          }), 1500
+        )
       } else if (this.state.scorePlayer > 21) {
+        setTimeout(() =>
         this.setState({
           messageResult: "LOOSER",
-        });
+        }), 1500
+        )
       }
     }
 
@@ -279,34 +283,45 @@ class App extends React.Component {
 
   endGame() {
     // APPEL FONCTION DE TIRAGE AUTOMATIQUE D'UNE CARTE SI LA BANQUE EST EN DESSOUS DE 17 AU MOMENT DE TERMINER LE JEU
-    if (this.state.scoreBank < 17) {
-      this.autoBankDraw();
-    }
 
-    if (
-      this.state.scorePlayer <= 21 &&
-      this.state.scorePlayer > this.state.scoreBank
-    ) {
-      this.setState({
-        messageResult: "WINNER",
-        totalScorePlayer: this.state.totalScorePlayer + 1,
-      });
-    } else {
-      this.setState({
-        messageResult: "LOOSER",
-        totalScoreBank: this.state.totalScoreBank + 1,
-      });
-    }
+    if (this.state.scorePlayer !== 0 && this.state.scoreBank !== 0) {
+
+      if (this.state.scoreBank < 17) {
+        this.autoBankDraw();
+      }
+
+      if (
+        this.state.scorePlayer <= 21 &&
+        this.state.scorePlayer > this.state.scoreBank
+      ) {
+        setTimeout(() =>
+          this.setState({
+            messageResult: "WINNER",
+            totalScorePlayer: this.state.totalScorePlayer + 1,
+          }), 1500);
+
+      } else {
+        setTimeout(() =>
+          this.setState({
+            messageResult: "LOOSER",
+            totalScoreBank: this.state.totalScoreBank + 1,
+          }), 1500);
+      }
+    } else { alert("lance dabord le jeu"); }
+
   }
 
   // RENDER
   render() {
     if (this.state.messageResult === "WINNER") {
       return <Result resultGame="/images/win.jpg" reset={this.reset} />;
+
     } else if (this.state.messageResult === "LOOSER") {
       return <Result resultGame="/images/lose.jpg" reset={this.reset} />;
+
     } else if (this.state.messageResult === "") {
       return (
+
         <div className="app-container">
           {/* Header */}
 
