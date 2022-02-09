@@ -189,6 +189,7 @@ class App extends React.Component {
           () =>
             this.setState({
               messageResult: "LOOSER",
+              totalScoreBank: this.state.totalScoreBank + 1,
             }),
           1500
         );
@@ -378,12 +379,14 @@ class App extends React.Component {
                       score={this.state.totalScoreBank}
                       scoreType="total-score"
                       children="Dealer"
+                      nameScore="score-div-left"
                     />
                     <Cards cards={this.state.bankCards} />
                     <Score
                       score={this.state.scoreBank}
                       scoreType="current-score"
                       children="Dealer"
+                      nameScore="score-div-right"
                     />
                   </div>
                 </div>
@@ -396,12 +399,14 @@ class App extends React.Component {
                       score={this.state.totalScorePlayer}
                       scoreType="total-score"
                       children="Joueur"
+                      nameScore="score-div-left"
                     />
                     <Cards cards={this.state.playerCard} />
                     <Score
                       score={this.state.scorePlayer}
                       scoreType="current-score"
                       children="Joueur"
+                      nameScore="score-div-right"
                     />
                   </div>
                 </div>

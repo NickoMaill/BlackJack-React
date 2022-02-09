@@ -7,7 +7,15 @@
 
 }
 
-.score-div{
+.score-div-right{
+    margin-right: 2rem;
+}
+
+.score-div-left{
+    margin-left: 2rem;
+}
+
+.score-div {
     margin-bottom: 2rem;
 }
 
@@ -21,4 +29,23 @@
 
 .current-score {
     margin-right: 2rem;
+}
+
+@media (max-width: 768px) {
+    .total-score {
+        margin-left: 0rem;
+    }
+    
+    .current-score {
+        margin-right: 0rem;
+    }
+
+    .score-div-right{
+        margin-right: 0rem;
+    }
+    
+    .score-div-left{
+        margin-left: 0rem;
+    }
+
 }

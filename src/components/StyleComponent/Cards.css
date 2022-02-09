@@ -1,6 +1,7 @@
 .cards-ul{
     display: flex;
     list-style: none;
+    flex-direction: row-reverse;
     justify-content: center;
     margin: 0;
     padding: 0;

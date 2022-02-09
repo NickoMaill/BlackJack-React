@@ -28,3 +28,7 @@
     transition-duration: 100ms;
     opacity: 1;
   }
+
+  .responsive-reset{
+    margin-top: 5rem;
+  }

@@ -6,7 +6,7 @@ class Score extends React.Component {
     render() {
         return (
             <div>
-                <div>
+                <div className={this.props.nameScore}>
                     <p>{this.props.children}</p>
                 </div>
 

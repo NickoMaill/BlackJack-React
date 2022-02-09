@@ -21,4 +21,21 @@
 
 .img-result {
     width: 50rem;
+    border-radius: 3rem;
+}
+
+.responsive-reset{
+    margin-top: 1rem;
+    font-size: 2rem;
+    width: auto;
+  }
+
+
+@media (max-width: 1024px) {
+    .modal-content{
+
+    }
+    .img-result{
+        width: 100%;
+    }
 }

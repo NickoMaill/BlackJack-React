@@ -18,7 +18,8 @@ class Result extends React.Component {
               <Button
                 buttonColor="reset"
                 onClick={this.props.reset}
-                children="Commencer"
+                children="Rejouer"
+                className2="responsive-reset"
               />
 
             </div>
