@@ -1,0 +1,12 @@
+.score-div{
+    border: solid 2px rgb(66, 64, 64);
+    background-color: rgba(255, 255, 255, 0.747);
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    
+}
+
+.score-count{
+    font-size: 1.5rem;
+}

@@ -1,0 +1,14 @@
+footer {
+    background-color: rgb(12, 77, 3);
+    color: #fff;
+    position: fixed;
+    height: 50px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    text-align: start;
+}
+
+.copyright {
+    font-size: 1rem;
+}

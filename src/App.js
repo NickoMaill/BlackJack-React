@@ -7,6 +7,9 @@ import Cards from "./components/Cards";
 import Players from "./components/Player";
 import Result from "./components/Result";
 import Score from "./components/Score";
+import PartyScore from "./components/PartyScore";
+import Header from "./components/Header";
+import Footer from "./components/Footer"
 
 let cardsDeck = [];
 
@@ -19,10 +22,10 @@ class App extends React.Component {
       bankCards: [],
       playerCard: [],
       playerCardValue: [],
-      scoreBank: null,
-      scorePlayer: null,
-      totalScoreBank: null,
-      totalScorePlayer: null,
+      scoreBank: 0,
+      scorePlayer: 0,
+      totalScoreBank: 0,
+      totalScorePlayer: 0,
       messageResult: "",
     };
 
@@ -41,10 +44,10 @@ class App extends React.Component {
       bankCards: [],
       playerCard: [],
       playerCardValue: [],
-      scoreBank: null,
-      scorePlayer: null,
-      totalScoreBank: null,
-      totalScorePlayer: null,
+      scoreBank: 0,
+      scorePlayer: 0,
+      totalScoreBank: 0,
+      totalScorePlayer: 0,
       messageResult: "",
     });
     // Requête initial de l'API
@@ -239,41 +242,80 @@ class App extends React.Component {
     return (
       <div className="app-container">
 
+        {/* Header */}
+
+        <Header />
+
+        {/* High Page */}
+
         <div className="title-container">
+
           <img
             className="logo"
             src="/images/Logo.png"
           />
+
           <h1>BlackJack</h1>
+
         </div>
+
+        {/* Result Monitor */}
+
+        <Result
+          resultGame={this.state.messageResult}
+        />
+
+        {/* Croupier Part */}
 
         <div className="player-container croupier-container">
 
           <Players
-            children="Croupier"
             playerImg="/images/Croupier2.png"
             altPlayer="Le croupier contre qui vous jouez"
           />
 
           <div className="card-container">
+            <Score
+              score={this.state.totalScorePlayer}
+            />
             <Cards
               cards={this.state.bankCards}
             />
+            <Score
+              score={this.state.scoreBank}
+            />
+
           </div>
+
         </div>
+
+        {/* Player Part */}
 
         <div className="player-container player1-container">
 
           <div className="card-container">
+
+            <Score
+              score={this.state.totalScorePlayer}
+            />
             <Cards
               cards={this.state.playerCard}
             />
+            <Score
+              score={this.state.scorePlayer}
+            />
+
           </div>
 
           <Players
             children="Votre Main"
+            color="#fff"
           />
+
         </div>
+
+        {/* Choice Button */}
+
         <div className="btn-group">
 
           <Button
@@ -293,11 +335,11 @@ class App extends React.Component {
           />
 
         </div>
-        <Score score={this.state.scorePlayer} character={"du joueur 1"} />
-        <Score score={this.state.scoreBank} character={"de la banque"} />
-        <Result
-          resultGame={this.state.messageResult}
-        />
+
+        {/* Footer */}
+
+        <Footer />
+
       </div>
     );
   }

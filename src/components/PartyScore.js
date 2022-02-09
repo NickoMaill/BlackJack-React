@@ -1,10 +1,12 @@
 import React from 'react';
 
-class PartyScore extends React.Component{
-    render(){
-        return(
+class PartyScore extends React.Component {
+    render() {
+        return (
 
-            <p>PartyScore</p>
+            <div className='score-div'>
+                <p>{this.props.totalScore}</p>
+            </div>
 
 
         )
