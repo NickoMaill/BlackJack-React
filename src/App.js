@@ -1,13 +1,11 @@
 import React from "react";
 import "./App.css";
-import "./components/StyleComponent/style.css";
 
 import Button from "./components/Button.js";
 import Cards from "./components/Cards";
 import Players from "./components/Player";
 import Result from "./components/Result";
 import Score from "./components/Score";
-import PartyScore from "./components/PartyScore";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -267,68 +265,76 @@ class App extends React.Component {
 
         <Header />
 
-        {/* High Page */}
+        <div className="content-container">
 
-        <div className="title-container">
-          <img className="logo" src="/images/Logo.png" />
+          {/* High Page */}
 
-          <h1>BlackJack</h1>
-        </div>
+          <div className="title-container">
+            <img className="logo" src="/images/Logo.png" />
 
-        {/* Result Monitor */}
-
-        <Result resultGame={this.state.messageResult} />
-
-        {/* Croupier Part */}
-
-        <div className="player-container croupier-container">
-          <Players
-            playerImg="/images/Croupier2.png"
-            altPlayer="Le croupier contre qui vous jouez"
-          />
-
-          <div className="card-container">
-            <Score score={this.state.totalScoreBank} />
-            <Cards cards={this.state.bankCards} />
-            <Score score={this.state.scoreBank} />
-          </div>
-        </div>
-
-        {/* Player Part */}
-
-        <div className="player-container player1-container">
-          <div className="card-container">
-            <Score score={this.state.totalScorePlayer} />
-            <Cards cards={this.state.playerCard} />
-            <Score score={this.state.scorePlayer} />
+            <h1>BlackJack</h1>
           </div>
 
-          <Players children="Votre Main" color="#fff" />
+          {/* Result Monitor */}
+
+          <Result resultGame={this.state.messageResult} />
+
+          {/* Croupier Part */}
+
+          <div className="player-container croupier-container">
+            <Players
+              playerImg="/images/Croupier2.png"
+              altPlayer="Le croupier contre qui vous jouez"
+            />
+
+            <div className="card-container">
+              <Score score={this.state.totalScoreBank} />
+              <Cards cards={this.state.bankCards} />
+              <Score score={this.state.scoreBank} />
+            </div>
+          </div>
+
+          {/* Player Part */}
+
+          <div className="player-container player1-container">
+            <div className="card-container">
+              <Score score={this.state.totalScorePlayer} />
+              <Cards cards={this.state.playerCard} />
+              <Score score={this.state.scorePlayer} />
+            </div>
+
+            <Players children="Votre Main" color="#fff" />
+          </div>
+
+          {/* Choice Button */}
+
+          <div className="btn-group">
+            <Button
+              buttonColor="reset"
+              onClick={this.reset}
+              children="Commencer"
+            />
+            <Button
+              buttonColor="draw"
+              onClick={this.drawCard}
+              children="Tirer Carte"
+            />
+            <Button
+              buttonColor="stop"
+              onClick={() => this.endGame()}
+              children="Rester"
+            />
+          </div>
+
         </div>
 
-        {/* Choice Button */}
-
-        <div className="btn-group">
-          <Button
-            buttonColor="reset"
-            onClick={this.reset}
-            children="Commencer"
-          />
-          <Button
-            buttonColor="draw"
-            onClick={this.drawCard}
-            children="Tirer Carte"
-          />
-          <Button
-            buttonColor="stop"
-            onClick={() => this.endGame()}
-            children="Rester"
-          />
-        </div>
 
         {/* Footer */}
+        <footer className="footer">
+          
+          <Footer />
 
-        <Footer />
+        </footer>
       </div>
     );
   }

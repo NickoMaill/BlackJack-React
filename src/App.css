@@ -1,38 +1,65 @@
-.App {
+@font-face {
+  font-family: "Font";
+  src: url("../public/font/Source_Serif_4/static/SourceSerif4/SourceSerif4-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Font2";
+  src: url("../public/font/font2/static/Raleway-Bold.ttf");
+}
+
+
+body {
+  /* background-image: url("../../../public/images/Green_Background.png"); */
+  background-color: rgb(9, 117, 52);
+}
+
+div {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo {
+  width: 200px;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1 {
+  font-size: 50px;
+  font-family: "Font";
+  margin: 0 0 2rem 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1 {
+  text-shadow: 0 4px 0 white, 0 -4px 0 black;
+}
+
+p {
+  font-family: "Font2";
+}
+
+.card-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
+}
+
+.btn-group {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 2rem;
 }
 
-.App-link {
-  color: #61dafb;
+.content-container{
+  min-height: calc(100vh - 34px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.footer {
+  background-color: rgb(12, 77, 3);
+  color: #fff;
+  position: relative;
+  left: 0;
+  bottom: 0;
+  padding-top: 1rem;
+  padding-bottom: 0.1rem;
+  text-align: start;
 }
