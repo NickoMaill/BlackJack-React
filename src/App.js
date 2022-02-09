@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 let cardsDeck = [];
+let tempScore = 0;
 
 class App extends React.Component {
   constructor() {
@@ -48,6 +49,8 @@ class App extends React.Component {
       scorePlayer: 0,
       messageResult: "",
     });
+
+    tempScore = 0;
     // Requête initial de l'API
 
     fetch("https://deckofcardsapi.com/api/deck/new/draw/?count=52")
@@ -96,7 +99,7 @@ class App extends React.Component {
           this.state.playerCardValue.length === 2
         ) {
           this.setState({
-            scorePlayer: 21,
+            scorePlayer: 10,
           });
         }
 
@@ -118,14 +121,17 @@ class App extends React.Component {
             cardsDeck[0].cards[i].value === "KING" ||
             cardsDeck[0].cards[i].value === "JACK"
           ) {
+            tempScore += 10;
             this.setState({
               scoreBank: 10 + this.state.scoreBank,
             });
           } else if (cardsDeck[0].cards[i].value === "ACE") {
+            tempScore += 1;
             this.setState({
               scoreBank: 1 + this.state.scoreBank,
             });
           } else {
+            tempScore += parseInt(cardsDeck[0].cards[i].value);
             this.setState({
               // Score des cartes "standards"
               scoreBank:
@@ -169,19 +175,23 @@ class App extends React.Component {
     // GUARD FIN DE PARTIE SI SCORE JOUEUR = 21
 
     if (prevState.scorePlayer !== this.state.scorePlayer) {
-      if (this.state.scorePlayer === 21) {
-        setTimeout(() =>
-          this.setState({
-            messageResult: "WINNER",
-            totalScorePlayer: this.state.totalScorePlayer + 1,
-          }), 1500
-        )
+      if (this.state.scorePlayer === 21 || tempScore > 21) {
+        setTimeout(
+          () =>
+            this.setState({
+              messageResult: "WINNER",
+              totalScorePlayer: this.state.totalScorePlayer + 1,
+            }),
+          1500
+        );
       } else if (this.state.scorePlayer > 21) {
-        setTimeout(() =>
-        this.setState({
-          messageResult: "LOOSER",
-        }), 1500
-        )
+        setTimeout(
+          () =>
+            this.setState({
+              messageResult: "LOOSER",
+            }),
+          1500
+        );
       }
     }
 
@@ -211,6 +221,7 @@ class App extends React.Component {
       ],
     });
     console.log(this.state.bankCardValue);
+    console.log("TEMPSCORE", tempScore);
 
     // Score spécifiques pour les "têtes" (+10 ou +1 pour l'AS)
     if (
@@ -218,21 +229,27 @@ class App extends React.Component {
       cardsDeck[0].cards[this.state.cardCount].value === "KING" ||
       cardsDeck[0].cards[this.state.cardCount].value === "JACK"
     ) {
+      tempScore += 10;
       this.setState({
         scoreBank: 10 + this.state.scoreBank,
         cardCount: this.state.cardCount + 1,
       });
+      console.log("TEMPSCORE", tempScore);
     } else if (cardsDeck[0].cards[this.state.cardCount].value === "ACE") {
+      tempScore += 1;
       this.setState({
         scoreBank: 1 + this.state.scoreBank,
         cardCount: this.state.cardCount + 1,
       });
+      console.log("TEMPSCORE", tempScore);
     } else {
       //Score des cartes standards
+      tempScore += bankScore;
       this.setState({
         scoreBank: bankScore + this.state.scoreBank,
         cardCount: this.state.cardCount + 1,
       });
+      console.log("TEMPSCORE", tempScore);
     }
   }
 
@@ -284,44 +301,47 @@ class App extends React.Component {
   endGame() {
     // APPEL FONCTION DE TIRAGE AUTOMATIQUE D'UNE CARTE SI LA BANQUE EST EN DESSOUS DE 17 AU MOMENT DE TERMINER LE JEU
 
+    console.log("TEMPSCORE", tempScore);
     if (this.state.scorePlayer !== 0 && this.state.scoreBank !== 0) {
-
-      if (this.state.scoreBank < 17) {
+      if (tempScore < 17) {
         this.autoBankDraw();
       }
 
       if (
-        this.state.scorePlayer <= 21 &&
-        this.state.scorePlayer > this.state.scoreBank
+        (this.state.scorePlayer <= 21 && this.state.scorePlayer > tempScore) ||
+        tempScore > 21
       ) {
-        setTimeout(() =>
-          this.setState({
-            messageResult: "WINNER",
-            totalScorePlayer: this.state.totalScorePlayer + 1,
-          }), 1500);
-
+        setTimeout(
+          () =>
+            this.setState({
+              messageResult: "WINNER",
+              totalScorePlayer: this.state.totalScorePlayer + 1,
+            }),
+          1500
+        );
       } else {
-        setTimeout(() =>
-          this.setState({
-            messageResult: "LOOSER",
-            totalScoreBank: this.state.totalScoreBank + 1,
-          }), 1500);
+        setTimeout(
+          () =>
+            this.setState({
+              messageResult: "LOOSER",
+              totalScoreBank: this.state.totalScoreBank + 1,
+            }),
+          1500
+        );
       }
-    } else { alert("lance dabord le jeu"); }
-
+    } else {
+      alert("lance dabord le jeu");
+    }
   }
 
   // RENDER
   render() {
     if (this.state.messageResult === "WINNER") {
       return <Result resultGame="/images/win.jpg" reset={this.reset} />;
-
     } else if (this.state.messageResult === "LOOSER") {
       return <Result resultGame="/images/lose.jpg" reset={this.reset} />;
-
     } else if (this.state.messageResult === "") {
       return (
-
         <div className="app-container">
           {/* Header */}
 
