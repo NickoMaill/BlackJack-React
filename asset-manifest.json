@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/BlackJack-React/static/css/main.669fd8d7.css",
+    "main.js": "/BlackJack-React/static/js/main.97e97e74.js",
+    "static/js/787.ca2bb39a.chunk.js": "/BlackJack-React/static/js/787.ca2bb39a.chunk.js",
+    "static/media/SourceSerif4-Regular.ttf": "/BlackJack-React/static/media/SourceSerif4-Regular.6d0c23b91d7f2f7b79e1.ttf",
+    "static/media/Raleway-Bold.ttf": "/BlackJack-React/static/media/Raleway-Bold.d1a96e2aa6257c864d4d.ttf",
+    "index.html": "/BlackJack-React/index.html",
+    "main.669fd8d7.css.map": "/BlackJack-React/static/css/main.669fd8d7.css.map",
+    "main.97e97e74.js.map": "/BlackJack-React/static/js/main.97e97e74.js.map",
+    "787.ca2bb39a.chunk.js.map": "/BlackJack-React/static/js/787.ca2bb39a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.669fd8d7.css",
+    "static/js/main.97e97e74.js"
+  ]
+}
