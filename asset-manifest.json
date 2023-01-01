@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/css/main.45c82e64.css",
-    "main.js": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/js/main.b32cf9e4.js",
-    "static/js/496.322cc6c3.chunk.js": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/js/496.322cc6c3.chunk.js",
-    "static/media/SourceSerif4-Regular.ttf": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/media/SourceSerif4-Regular.6d0c23b91d7f2f7b79e1.ttf",
-    "static/media/Raleway-Bold.ttf": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/media/Raleway-Bold.d1a96e2aa6257c864d4d.ttf",
-    "index.html": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/index.html",
-    "main.45c82e64.css.map": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/css/main.45c82e64.css.map",
-    "main.b32cf9e4.js.map": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/js/main.b32cf9e4.js.map",
-    "496.322cc6c3.chunk.js.map": "/%C2%AB%20https://NickoMaill.github.io/BlackJack-React/static/js/496.322cc6c3.chunk.js.map"
+    "main.css": "/BlackJack-React/static/css/main.669fd8d7.css",
+    "main.js": "/BlackJack-React/static/js/main.82f4b723.js",
+    "static/js/496.322cc6c3.chunk.js": "/BlackJack-React/static/js/496.322cc6c3.chunk.js",
+    "static/media/SourceSerif4-Regular.ttf": "/BlackJack-React/static/media/SourceSerif4-Regular.6d0c23b91d7f2f7b79e1.ttf",
+    "static/media/Raleway-Bold.ttf": "/BlackJack-React/static/media/Raleway-Bold.d1a96e2aa6257c864d4d.ttf",
+    "index.html": "/BlackJack-React/index.html",
+    "main.669fd8d7.css.map": "/BlackJack-React/static/css/main.669fd8d7.css.map",
+    "main.82f4b723.js.map": "/BlackJack-React/static/js/main.82f4b723.js.map",
+    "496.322cc6c3.chunk.js.map": "/BlackJack-React/static/js/496.322cc6c3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.45c82e64.css",
-    "static/js/main.b32cf9e4.js"
+    "static/css/main.669fd8d7.css",
+    "static/js/main.82f4b723.js"
   ]
 }
